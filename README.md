@@ -1,59 +1,46 @@
 # DevfestManager
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.0.
-
-## Development server
-
-To start a local development server, run:
-
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
 ## Code scaffolding
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+```
+src/
+├── app/
+│   ├── features/
+│   │   ├── admin/
+│   │   │   └── create-event.ts      <-- Class CreateEvent
+│   │   └── events/
+│   │       ├── event-card.ts        <-- Class EventCard
+│   │       ├── event-details.ts     <-- Class EventDetails
+│   │       └── event-list.ts        <-- Class EventList
+│   ├── layout/
+│   │   └── header.ts                <-- Class Header
+│   ├── models/
+│   │   └── event.ts                 <-- Interface DevFestEvent
+│   ├── app.config.ts
+│   ├── app.routes.ts
+│   └── app.ts                       <-- Class App
+├── main.ts
+├── styles.css                      <-- Tailwind v4 @theme
+└── index.html
 
-```bash
-ng generate component component-name
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 📚 Instructions
 
-```bash
-ng generate --help
-```
+You can find the step-by-step instructions for this workshop in the `instructions` folder.
 
-## Building
+### Day 1
 
-To build the project run:
+- [Module 1: The Signal-Powered Component Model](instructions/day%201%20module%201.md)
+- [Module 2: Declarative Data Fetching](instructions/day%201%20module%202.md)
+- [Module 3: Modern Routing](instructions/day%201%20module%203.md)
+- [Module 4: The Signal Forms API](instructions/day%201%20module%204.md)
+- [Module 5: Shared State & Dependency Injection](instructions/day%201%20module%205.md)
 
-```bash
-ng build
-```
+### Day 2
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- [Module 1: Next-Gen Rendering & Performance](instructions/day%202%20module%201.md)
+- [Module 2: Advanced UI Patterns & DI](instructions/day%202%20module%202.md)
+- [Module 3: RxJS Concurrency & Error Patterns](instructions/day%202%20module%203.md)
+- [Module 4: Enterprise State (SignalStore)](instructions/day%202%20module%204.md)
+- [Module 5: Quality Assurance & Testing (Vitest Edition)](instructions/day%202%20module%205.md)
