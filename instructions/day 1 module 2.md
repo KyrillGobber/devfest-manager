@@ -27,7 +27,7 @@ We will define our data fetching logic inside a service using the experimental *
 import { Injectable, inject, Signal } from '@angular/core';
 import { HttpClient, httpResource } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { DevFestEvent } from '../models/event';
+import { DevFestEvent } from '../models/event.model';
 
 @Injectable({
   providedIn: 'root',
@@ -68,7 +68,7 @@ Now we use this service in our Component. Notice how much cleaner this is compar
 ```typescript
 // src/app/features/events/event-list.ts
 import { Component, inject, signal } from '@angular/core';
-import { EventsService } from '../../../core/events.service';
+import { EventsService } from '../../core/events.service';
 // ... imports (EventCard, SearchBar)
 
 @Component({
@@ -83,7 +83,7 @@ export class EventList {
   // 1. Initialize the Resource
   // We pass our signal directly to the service.
   // This creates a live connection: searchQuery -> URL -> HTTP Request -> events.value
-  events = this.eventsService.getEventsResource(this.searchQuery);
+  readonly events = this.eventsService.getEventsResource(this.searchQuery);
 }
 ```
 
@@ -157,19 +157,8 @@ export class EventList {
   // ... previous code ...
 
   deleteEvent(id: string) {
-    if (!confirm('Are you sure?')) return;
-
-    // 1. Subscribe to the action
-    this.eventsService.deleteEvent(id).subscribe({
-      next: () => {
-        // 2. On success, reload the resource
-        // This re-fetches the current list from the server
-        this.events.reload();
-      },
-      error: (err) => {
-        console.error('Delete failed', err);
-        alert('Could not delete event');
-      },
+    this.eventsService.deleteEvent(id).subscribe(() => {
+      this.events.reload();
     });
   }
 }
