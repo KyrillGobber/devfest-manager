@@ -1,6 +1,6 @@
 import { Injectable, inject, Signal } from '@angular/core';
 import { HttpClient, httpResource } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { DevFestEvent } from '../models/event.model';
 
 @Injectable({
@@ -35,5 +35,11 @@ export class EventsService {
   // We return an Observable (classic pattern) for the component to subscribe to.
   deleteEvent(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  createEvent(event: Omit<DevFestEvent, 'id'>): Observable<DevFestEvent> {
+    return this.http
+      .post<DevFestEvent>(this.apiUrl, event)
+      .pipe(tap((event) => console.log('Event created:', event)));
   }
 }
