@@ -5,6 +5,7 @@ import { RouterLink } from '@angular/router';
 import { CartService } from '../../core/cart.service';
 import { TabGroup } from '../../shared/tabs/tab-group';
 import { Tab } from '../../shared/tabs/tab';
+import { CartStore } from '../../core/cart.store';
 
 @Component({
   selector: 'app-event-details',
@@ -92,9 +93,14 @@ import { Tab } from '../../shared/tabs/tab';
             @defer (hydrate on interaction) {
               <button
                 (click)="addToCart()"
-                class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 shadow-lg transition active:scale-95"
+                [disabled]="cartStore.isPending()"
+                class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 shadow-lg transition active:scale-95 disabled:opacity-50 disabled:cursor-wait"
               >
-                Buy Ticket
+                @if (cartStore.isPending()) {
+                  Syncing...
+                } @else {
+                  Buy Ticket
+                }
               </button>
             } @placeholder {
               <button class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold opacity-90">
@@ -109,13 +115,13 @@ import { Tab } from '../../shared/tabs/tab';
 })
 export class EventDetails {
   private readonly eventsService = inject(EventsService);
-  private readonly cartService = inject(CartService);
+  readonly cartStore = inject(CartStore);
 
   readonly id = input.required<string>();
 
   readonly eventResource = this.eventsService.getEventResource(this.id);
 
   addToCart() {
-    this.cartService.addTicket(this.id());
+    this.cartStore.addToCart({ eventId: this.id() });
   }
 }
