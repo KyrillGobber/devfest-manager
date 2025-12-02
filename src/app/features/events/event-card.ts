@@ -1,16 +1,24 @@
 import { DatePipe, NgOptimizedImage } from '@angular/common';
 import { Component, computed, input, linkedSignal, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { UiCard } from '../../shared/ui-card';
+import { ClickLogger } from '../../shared/directives/click-logger';
 
 @Component({
   selector: 'app-event-card',
-  imports: [DatePipe, RouterLink, NgOptimizedImage],
+  imports: [DatePipe, RouterLink, NgOptimizedImage, UiCard],
+  hostDirectives: [
+    {
+      directive: ClickLogger,
+      // We expose the directive's 'eventName' input as 'trackingId'
+      // so the parent can do: <app-event-card [trackingId]="..." />
+      inputs: ['eventName: trackingId'],
+    },
+  ],
   template: `
-    <div
-      class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
-    >
+    <app-ui-card>
       <!-- TODO: Add Image -->
-      <div class="relative h-48 w-full bg-gray-200">
+      <div card-header class="relative h-48 w-full bg-gray-200">
         <img
           [ngSrc]="image()"
           width="500"
@@ -19,6 +27,15 @@ import { RouterLink } from '@angular/router';
           class="object-cover w-full h-full max-h-full max-w-full"
           alt="Event thumbnail"
         />
+      </div>
+
+      <div card-footer class="mt-4 text-right">
+        <a
+          [routerLink]="['/event', id()]"
+          class="text-blue-600 font-medium hover:underline cursor-pointer"
+        >
+          View Details →
+        </a>
       </div>
 
       <div class="p-6">
@@ -65,17 +82,8 @@ import { RouterLink } from '@angular/router';
             Remove
           </button>
         </div>
-
-        <div class="mt-4 pt-4 border-t border-gray-100 text-right">
-          <a
-            [routerLink]="['/event', id()]"
-            class="text-blue-600 font-medium hover:underline cursor-pointer"
-          >
-            View Details →
-          </a>
-        </div>
       </div>
-    </div>
+    </app-ui-card>
   `,
 })
 export class EventCard {

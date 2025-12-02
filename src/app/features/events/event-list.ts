@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { EventCard } from './event-card';
 import { SearchBar } from './search-bar';
 import { EventsService } from '../../core/events.service';
+import { ClickLogger } from '../../shared/directives/click-logger';
 
 @Component({
   selector: 'app-event-list',
@@ -37,6 +38,7 @@ import { EventsService } from '../../core/events.service';
             [title]="event.title"
             [date]="event.date"
             [image]="event.image"
+            [trackingId]="'event_card_' + event.id"
             (delete)="deleteEvent(event.id)"
           />
         } @empty {

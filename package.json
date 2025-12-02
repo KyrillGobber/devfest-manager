@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --no-hmr",
+    "start": "ng serve",
     "server": "json-server --watch db.json --port 3000 --delay 2000",
     "dev": "concurrently \"npm run server\" \"npm run start\"",
     "dev:ssr": "concurrently \"npm run server\" \"npm run serve:ssr:devfest-manager\"",
