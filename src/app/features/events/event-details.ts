@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { EventsService } from '../../core/events.service';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
