@@ -6,6 +6,7 @@ import { CartService } from '../../core/cart.service';
 import { VenueMap } from './venue-map';
 import { TabGroup } from '../../shared/tabs/tab-group';
 import { Tab } from '../../shared/tabs/tab';
+import { catchError, concatMap, delay, EMPTY, exhaustMap, mergeMap, of, Subject, switchMap, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-event-details',
@@ -122,5 +123,38 @@ export class EventDetails {
 
   addTicketToCart(eventId: string): void {
     this.cartService.addTicket(eventId);
+    //this.buyBtnClick$.next();
   }
+
+
+  // mergeMap - allows multiple concurrent transactions
+  // concatMap - queues transactions, processes one at a time
+  // exhaustMap - ignores new clicks while a transaction is in progress
+  // switchMap - cancels previous transaction on new click
+  //
+  //private buyBtnClick$ = new Subject<void>();
+  // constructor() {
+  //   this.buyBtnClick$
+  //     .pipe(
+  //       switchMap(() => {
+  //         console.log('Transaction started..');
+  //         return throwError(() => new Error('Credit Card Declined')).pipe(
+  //           delay(500),
+  //           catchError((err) => {
+  //             console.warn('⚠️ Handled Error:', err.message);
+  //             // Return a safe value (Observable) to keep the outer stream going
+  //             return EMPTY;
+  //           }),
+  //         );
+  //       }),
+  //     )
+  //     .subscribe({
+  //       next: (result) => {
+  //         console.log('good', result);
+  //       },
+  //       error: (err) => {
+  //         console.error('Stream ded:', err.message);
+  //       },
+  //     });
+  // }
 }

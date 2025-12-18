@@ -34,6 +34,7 @@ import { EventsService } from '../../core/events.service';
             [image]="event.image"
             [date]="event.date"
             (delete)="deleteEvent(event.id)"
+            [trackingId]="'event_card_'+ event.id"
           />
         } @empty {
           <p class="text-gray-500">No events found.</p>
