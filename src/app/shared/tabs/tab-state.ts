@@ -4,7 +4,7 @@ import { Injectable, signal } from '@angular/core';
 export class TabState {
   readonly activeTab = signal<string>('');
 
-  active(label: string) {
+  activate(label: string) {
     this.activeTab.set(label);
   }
 }

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, contentChildren, effect, inject } from '@angular/core';
 import { TabState } from './tab-state';
+import { Tab } from './tab';
 
 @Component({
   selector: 'app-tab-group',
@@ -9,7 +10,7 @@ import { TabState } from './tab-state';
       <!-- Render the buttons -->
       @for (tab of tabs(); track tab.label()) {
         <button
-          (click)="activate(tab.label())"
+          (click)="state.activate(tab.label())"
           class="px-4 py-2 border-b-2 transition-colors font-medium"
           [class.border-blue-600]="state.activeTab() === tab.label()"
           [class.text-blue-600]="state.activeTab() === tab.label()"
@@ -24,6 +25,20 @@ import { TabState } from './tab-state';
     <ng-content />
   `,
 })
-export class TabComponent {
-  label!: string;
+export class TabGroup {
+  readonly state = inject(TabState);
+  readonly tabs = contentChildren(Tab);
+
+  ngAfterViewInit() {
+    this.state.activate(this.tabs()[0].label());
+  }
+
+  // constructor() {
+  //   effect(() => {
+  //     const allTabs = this.tabs();
+  //     if (allTabs.length > 0 && !this.state.activeTab()) {
+  //       this.state.activate(allTabs[0].label());
+  //     }
+  //   });
+  // }
 }
